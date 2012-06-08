@@ -30,7 +30,7 @@ namespace Cron
 
         private const string logPath = @"c:\Cron\cron.log";
         private const string crontabPath = @"c:\Cron\crontab";
-        private const double Max_logSize = 5 * 1024 * 1024;
+        private const double Max_logSize = 1024 * 1024;
         private List<string> Rules
         {
             get
