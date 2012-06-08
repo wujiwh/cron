@@ -5,7 +5,7 @@
 #        Email: me@wangheng.org
 #     HomePage: http://wangheng.org
 #      Version: 0.0.1
-#   LastChange: 2012-06-08 14:24:53
+#   LastChange: 2012-06-08 11:38:35
 #      History:
 =============================================================================*/
 using System;
@@ -22,26 +22,26 @@ namespace Cron
 
             foreach (string minute in minutes.Split(','))
             {
-                if (minute == "*" ? true : DateTime.Now.Minute - Convert.ToInt32(minutes) == 0)
+                if (minute == "*" ? true : DateTime.Now.Minute - Convert.ToInt32(minute) == 0)
                     m = true;
             }
             foreach (string hour in hours.Split(','))
             {
-                if (hour == "*" ? true : DateTime.Now.Hour - Convert.ToInt32(hours) == 0)
+                if (hour == "*" ? true : DateTime.Now.Hour - Convert.ToInt32(hour) == 0)
                     h = true;
             }
             foreach (string day in days.Split(','))
             {
-                if (days == "*" ? true : DateTime.Now.Day - Convert.ToInt32(days) == 0)
+                if (day == "*" ? true : DateTime.Now.Day - Convert.ToInt32(day) == 0)
                     d = true;
             }
             foreach (string month in months.Split(','))
             {
-                M = (months == "*" ? true : DateTime.Now.Month - Convert.ToInt32(months) == 0) ? true : M;
+                M = (month == "*" ? true : DateTime.Now.Month - Convert.ToInt32(month) == 0) ? true : M;
             }
             foreach (string wee in week.Split(','))
             {
-                w = (week == "*" ? true : WeekToInt(DateTime.Now.DayOfWeek) - Convert.ToInt32(week) == 0) ? true : w;
+                w = (wee == "*" ? true : WeekToInt(DateTime.Now.DayOfWeek) - Convert.ToInt32(wee) == 0) ? true : w;
             }
 
             return m & h & M & (d | w);
