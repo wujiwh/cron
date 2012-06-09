@@ -5,7 +5,7 @@
 #        Email: me@wangheng.org
 #     HomePage: http://wangheng.org
 #      Version: 0.0.1
-#   LastChange: 2012-06-08 14:24:38
+#   LastChange: 2012-06-09 14:24:38
 #      History:
 =================================================*/
 using System;
@@ -27,7 +27,7 @@ namespace Cron
         {
             InitializeComponent();
         }
-
+        //规则文件以及log的默认路径和大小
         private const string logPath = @"c:\Cron\cron.log";
         private const string crontabPath = @"c:\Cron\crontab";
         private const double Max_logSize = 1024 * 1024;
@@ -49,6 +49,10 @@ namespace Cron
                 return rules;
             }
         }
+        /// <summary>
+        /// 服务启动
+        /// </summary>
+        /// <param name="args"></param>
         protected override void OnStart(string[] args)
         {
             LogWritter(string.Format(@"Cron for Windows by http://wangheng.org : Service Started at [{0}]", DateTime.Now.ToString()));
@@ -58,11 +62,17 @@ namespace Cron
             RefreshTask();
         }
 
+        /// <summary>
+        /// 服务停止
+        /// </summary>
         protected override void OnStop()
         {
             LogWritter(string.Format(@"Cron for Windows by http://wangheng.org : Service Stoped at [{0}]", DateTime.Now.ToString()));
         }
 
+        /// <summary>
+        /// 刷新并判断是否有要运行的规则
+        /// </summary>
         private void RefreshTask()
         {
             foreach (var rule in Rules)
@@ -80,6 +90,11 @@ namespace Cron
             }
         }
 
+        /// <summary>
+        /// 判断是否满足运行条件，JianQu是DateTime的扩展方法
+        /// </summary>
+        /// <param name="rule"></param>
+        /// <returns></returns>
         private bool BingoToRun(string rule)
         {
             string[] args = Regex.Split(rule, " ");
@@ -88,6 +103,10 @@ namespace Cron
             else
                 return false;
         }
+        /// <summary>
+        /// 写log文件
+        /// </summary>
+        /// <param name="text"></param>
         private static void LogWritter(string text)
         {
             if (File.Exists(logPath))
