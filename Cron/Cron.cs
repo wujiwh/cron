@@ -46,6 +46,7 @@ namespace Cron
                         rules.Add(rule);
                     }
                 } while (!string.IsNullOrEmpty(rule));
+                sr.Close();
                 return rules;
             }
         }
@@ -75,18 +76,29 @@ namespace Cron
         /// </summary>
         private void RefreshTask()
         {
-            foreach (var rule in Rules)
+            try
             {
-                if (BingoToRun(rule))
+                foreach (var rule in Rules)
                 {
-                    //System.Diagnostics.Process.Start(@"c:\ftp\ftp_backup.bat");
-                    System.Diagnostics.Process.Start(rule.Split(' ')[5].ToString());
-                    LogWritter(string.Format("Program or Command \"{0}\" Started at [{1}].", rule.Split(' ')[5], DateTime.Now.ToString()));
+                    if (BingoToRun(rule))
+                    {
+                        //System.Diagnostics.Process.Start(@"c:\ftp\ftp_backup.bat");
+                        System.Diagnostics.Process.Start(rule.Split(' ')[5].ToString());
+                        LogWritter("=============================================\n");
+                        LogWritter(string.Format("Program or Command \"{0}\" Started at [{1}].", rule.Split(' ')[5], DateTime.Now.ToString()));
+                        LogWritter("=============================================\n");
+                    }
+                    else
+                    {
+                        LogWritter(string.Format("The time is {0}. Nothing to do...", DateTime.Now));
+                    }
                 }
-                else
-                {
-                    LogWritter("Nothing to do...");
-                }
+            }
+            catch (Exception e)
+            {
+                LogWritter("================ Error Message===================\n");
+                LogWritter(e.Message);
+                LogWritter("=============================================\n");
             }
         }
 
