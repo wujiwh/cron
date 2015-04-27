@@ -1,6 +1,6 @@
 C# cron4win
 ---------------------------
-supports most cron scheduling.  See tests for supported formats.
+支持绝大部分Windows，注意早期操作系统可能需要安装.Net Framework 3.5版本
 
 ```
 *    *    *    *    *  
@@ -15,7 +15,8 @@ supports most cron scheduling.  See tests for supported formats.
 ```
 
 ```
-  
+Console Example
+===============
 * * * * *  d:\1.exe //每分钟执行d:\1.exe程序
 01 * * * * d:\1.exe //每小时执行d:\1.exe程序
 02 4 * * * d:\1.exe //每天执行d:\1.exe程序
@@ -24,5 +25,3 @@ supports most cron scheduling.  See tests for supported formats.
 
 ```
 
-Console Example
-===============
